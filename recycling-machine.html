@@ -101,6 +101,19 @@
 		if(w3){
       		modal.style.display = "block";
       		console.log(account);
+
+      		var data = {
+				//"bottles": bottleToAdd,
+				"walletAddress": account,
+			}
+
+			var url = "http://168.62.174.55/balance"
+			const response = await fetch(url, {
+			    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+			    body: JSON.stringify(data) // body data type must match "Content-Type" header
+			});
+
+			console.log(response);
 		}
     }
 
@@ -133,6 +146,15 @@
 		//CAL THE API TO SEND THE TRANSACTION
 		//the number of bottles is stored in bottleToAdd
 		//the account address is stored in account
+		var data = {
+			"bottles": bottleToAdd,
+			"accountAddress": account,
+		}
+
+		const response = await fetch(url, {
+		    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+		    body: JSON.stringify(data) // body data type must match "Content-Type" header
+		});
 
 		await provider.disconnect()
 		modal.style.display = "none";
