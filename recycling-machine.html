@@ -1,73 +1,79 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Cheve</title>
-    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
-  	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  	<link href='https://fonts.googleapis.com/css?family=IBM Plex Mono' rel='stylesheet'>
-  	<link rel="stylesheet" type="text/css" href="./styles.css">
-  </head>
-  <body>
-    <div class="myContent">
-      <div class="css-typing">
-		  <p>
-		    Welcome to Cheve.
-		  </p>
-		  <p>
-		   	The first recycle-to-earn dApp.
-		  </p>
-		  <p>
-		    How about getting started?
-		  </p>
-	  </div>
 
-      <div>
-        <button class="start" onclick="connectWC()" class="myBtn">
-        	Recycle
-        	<i class="material-icons">subdirectory_arrow_left</i>
-        </button>
-      </div>
-    </div>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>Cheve</title>
+	<script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=IBM Plex Mono' rel='stylesheet'>
+	<link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
 
-    <div id="myModal" class="modal">
-	  <div class="modal-content">
-	  	<div class="sessionInfo">
-	  		<img class="userPicture" src="./user.png">
-	  		<strong><p class="welcomePhrase">Let's get down to business</p></strong>
-	  	</div>
+<body>
+	<div class="myContent">
+		<div class="css-typing">
+			<p>
+				Welcome to Cheve.
+			</p>
+			<p>
+				The first recycle-to-earn dApp.
+			</p>
+			<p>
+				How about getting started?
+			</p>
+		</div>
 
-	  	<div class="sessionBottles">
-	  		<img src="./beer.png" class="myBeer">
-	  		<br>
-	  		<button class="addBottle" onclick="addBottle()" id="bottlesLegend">
-	  			0 bottles
-	  		</button>
-	  	</div>
-	  	<br>
-	  	<div class="endSessionOption">
-	  		<button class="endSession">Finish Transfer</button>
-	  	</div>
-	  </div>
+		<div>
+			<button class="start" onclick="connectWC()" class="myBtn">
+				Recycle
+				<i class="material-icons">subdirectory_arrow_left</i>
+			</button>
+		</div>
 	</div>
 
-  </body>
+	<div id="myModal" class="modal">
+		<div class="modal-content">
+			<div class="sessionInfo">
+				<img class="userPicture" src="./user.png">
+				<strong>
+					<p class="welcomePhrase">Let's get down to business</p>
+				</strong>
+			</div>
+
+			<div class="sessionBottles">
+				<img src="./beer.png" class="myBeer">
+				<br>
+				<button class="addBottle" onclick="addBottle()" id="bottlesLegend">
+					0 bottles
+				</button>
+			</div>
+			<br>
+			<div class="endSessionOption">
+				<button class="endSession">Finish Transfer</button>
+			</div>
+		</div>
+	</div>
+
+</body>
+
 </html>
 
 <script type="text/javascript">
+
 	var bottleToAdd = 0;
 
-	function addBottle(){
+	function addBottle() {
 		bottleToAdd++;
 		var legend = document.getElementById("bottlesLegend");
 
-		if(bottleToAdd == 1){
-			legend.innerText=bottleToAdd + " bottle";
-		}else{
-			legend.innerText=bottleToAdd + " bottles";
+		if (bottleToAdd == 1) {
+			legend.innerText = bottleToAdd + " bottle";
+		} else {
+			legend.innerText = bottleToAdd + " bottles";
 		}
 		console.log(account);
 	}
@@ -75,99 +81,101 @@
 	var modal = document.getElementById("myModal");
 	var close = document.getElementsByClassName("endSession")[0];
 
-    var account;
+	var account;
 
-    var flag = false;
+	var flag = false;
 
-    var provider = new WalletConnectProvider.default({
-      rpc: {
-        1: "https://cloudflare-eth.com/", // https://ethereumnodes.com/
-        137: "https://polygon-rpc.com/", // https://docs.polygon.technology/docs/develop/network-details/network/
-      },
-      // bridge: 'https://bridge.walletconnect.org',
-    });
+	var provider = new WalletConnectProvider.default({
+		rpc: {
+			1: "https://cloudflare-eth.com/", // https://ethereumnodes.com/
+			137: "https://polygon-rpc.com/", // https://docs.polygon.technology/docs/develop/network-details/network/
+		},
+		// bridge: 'https://bridge.walletconnect.org',
+	});
 
-    var connectWC = async () => {
+	var connectWC = async () => {
 
-    	await provider.disconnect();
+		await provider.disconnect();
 		await provider.enable();
 
 		const web3 = new Web3(provider);
 		window.w3 = web3
 
-		var accounts  = await web3.eth.getAccounts(); // get all connected accounts
+		var accounts = await web3.eth.getAccounts(); // get all connected accounts
 		account = accounts[0]; // get the primary account
 
-		if(w3){
-      		modal.style.display = "block";
-      		console.log(account);
+		if (w3) {
+			modal.style.display = "block";
+			console.log(account);
 
-      		var data = {
+			var data = {
 				//"bottles": bottleToAdd,
 				"walletAddress": account,
 			}
 
-			var url = "http://168.62.174.55/balance"
-			const response = await fetch(url, {
-			    method: 'GET', // *GET, POST, PUT, DELETE, etc.
-			    body: JSON.stringify(data) // body data type must match "Content-Type" header
-			});
-
-			console.log(response);
+			var url = "http://127.0.0.1:3000/balance?walletAddress=" + account
+			fetch(url, {
+				method: 'GET', // *GET, POST, PUT, DELETE, etc.
+				//body: JSON.stringify(data) // body data type must match "Content-Type" header
+			}).then(response => response.json().then(data => console.log(data)));
 		}
-    }
+	}
 
-    var sign = async (msg) => {
-    	if (w3) {
-        	return await w3.eth.personal.sign(msg, account)
-      	}else {
-        	return false
-      	}
-    }
+	var sign = async (msg) => {
+		if (w3) {
+			return await w3.eth.personal.sign(msg, account)
+		} else {
+			return false
+		}
+	}
 
-    var contract = async (abi, address) => {
-      if (w3) {
-        return new w3.eth.Contract(abi, address)
-      } else {
-        return false
-      }
-    }
+	var contract = async (abi, address) => {
+		if (w3) {
+			return new w3.eth.Contract(abi, address)
+		} else {
+			return false
+		}
+	}
 
 
-    var disconnect = async () => {
-      	await provider.disconnect()
-    }
+	var disconnect = async () => {
+		await provider.disconnect()
+	}
 
-    var address = "0x4b4f8ca8fb3e66b5ddafcebfe86312cec486dae1"
-    var abi = [{"inputs":[],"name":"count","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"increment","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"}]
+	var address = "0x4b4f8ca8fb3e66b5ddafcebfe86312cec486dae1"
+	var abi = [{ "inputs": [], "name": "count", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "increment", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }]
 
-	close.onclick = async() => {
+	close.onclick = async () => {
 
 		//CAL THE API TO SEND THE TRANSACTION
 		//the number of bottles is stored in bottleToAdd
 		//the account address is stored in account
 		var data = {
-			"bottles": bottleToAdd,
-			"accountAddress": account,
+			"amount": bottleToAdd,
+			"address": account,
 		}
 
+		console.log(data)
+		let url = "http://127.0.0.1:3000/deposit";
+
 		const response = await fetch(url, {
-		    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-		    body: JSON.stringify(data) // body data type must match "Content-Type" header
+			method: 'POST', // *GET, POST, PUT, DELETE, etc.
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data) // body data type must match "Content-Type" header
 		});
 
 		await provider.disconnect()
 		modal.style.display = "none";
-		location.reload();
+		//location.reload();
 	}
 
 	window.onclick = async (event) => {
 		await provider.disconnect()
-	  	if (event.target == modal) {
-	    	modal.style.display = "none";
-	    	location.reload();
-	  	}
+		if (event.target == modal) {
+			modal.style.display = "none";
+			//location.reload();
+		}
 	}
 </script>
-
-
